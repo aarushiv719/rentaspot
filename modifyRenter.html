@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Renter Account</title>
+
+    <script>
+        
+        window.onload = init;
+        function init() {
+
+            const user = new Request("http://127.0.0.1:3000/getCurrentUser");
+            fetch(user)
+            .then(response => response.json())
+            .then(renter => {
+                id = renter.id;
+                document.getElementById("username").value = renter.username;
+                document.getElementById("password").value = renter.password;
+                document.getElementById("fName").value = renter.first_name;
+                document.getElementById("lName").value = renter.last_name;
+                document.getElementById("zip").value = renter.zipcode;
+                document.getElementById("email").value = renter.email;
+                document.getElementById("street").value = renter.address;
+                document.getElementById("city").value = renter.city;
+                document.getElementById("state").value = renter.state;
+                document.getElementById("phone").value = renter.phone;
+            })
+            .catch(error => console.error(error));
+
+            document.getElementById("modify-renter").addEventListener("submit", function(event){
+                event.preventDefault();
+                const renterUser = document.getElementById("username").value;
+                const renterPass = document.getElementById("password").value;
+                const renterFirstN = document.getElementById("fName").value;
+                const renterLastN = document.getElementById("lName").value;
+                const renterZip = document.getElementById("zip").value;
+                const renterEmail = document.getElementById("email").value;
+                const renterAddress = document.getElementById("street").value;
+                const renterCity = document.getElementById("city").value;
+                const renterState = document.getElementById("state").value;
+                const renterPhone = document.getElementById("phone").value;
+            
+            var id = null;
+            const userRequest = new Request("http://127.0.0.1:3000/getCurrentUser");
+            fetch(userRequest)
+            .then(response => response.json())
+            .then(user => {
+                id = user.id;
+                const request = new Request(`http://127.0.0.1:3000/modifyRenter`, {
+                method: "POST",
+                body: JSON.stringify(({last_name: renterLastN, first_name: renterFirstN, email: renterEmail, address: renterAddress, city: renterCity, state: renterState, zipcode: renterZip, phone: renterPhone, username: renterUser, password: renterPass, id: id})),
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+                });
+                fetch(request)
+                .then(response => response.json())
+                .then(data => {
+                document.getElementById("username").value = renterUser;
+                document.getElementById("password").value = renterPass;
+                document.getElementById("fName").value = renterFirstN;
+                document.getElementById("lName").value = renterLastN;
+                document.getElementById("zip").value = renterZip;
+                document.getElementById("email").value = renterEmail;
+                document.getElementById("street").value = renterAddress;
+                document.getElementById("city").value = renterCity;
+                document.getElementById("state").value = renterState;
+                document.getElementById("phone").value = renterPhone;
+
+                document.getElementById("modified-renter-info").innerHTML = `
+                <h2>Update Successful!</h2>
+                <h3>Modified Renter Information:</h3>
+                <p>Username: ${renterUser}</p>
+                <p>Password: ${renterPass}</p>
+                <p>First Name: ${renterFirstN}</p>
+                <p>Last Name: ${renterLastN}</p>
+                <p>Email: ${renterEmail}</p>
+				<p>Address: ${renterAddress}</p>
+				<p>City: ${renterCity}</p>
+                <p>Zip Code: ${renterZip}</p>
+				<p>State: ${renterState}</p>
+                <p>Phone: ${renterPhone}</p>
+                    `;
+                })
+
+                .catch(error => console.error(error));
+                });
+            })
+            .catch(error => console.error(error));
+			
+        }
+
+
+    </script>
+</head>
+<body>
+
+<h2>Modify Your Existing Renter Account!</h2>
+
+<form id = "modify-renter">
+
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter username" name="username" id="username">
+    <br>
+    <br>
+        
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter new password" name="password" id="password">
+    <br>
+    <br>
+
+    <label for="firstName"><b>First Name</b></label>
+    <input type="text" placeholder="Enter first name" name="firstName" id="fName">
+<br>
+<br>
+        <label for="lastName"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter last name" name="lastName" id="lName">
+    <br>
+    <br>
+    
+        <label for="email"><b>Email Address</b></label>
+        <input type="email" placeholder="Enter email" name="email" id="email">
+    <br>
+    <br>
+        <label for="streetaddress"><b>Street Address</b></label>
+        <input type="text" placeholder="Enter street address" name="streetaddress" id="street">
+    <br>
+    <br>
+        <label for="city"><b>City</b></label>
+        <input type="text" placeholder="Enter city" name="city" id="city">
+    <br>
+    <br>
+        <label for="zipcode"><b>Zip code</b></label>
+        <input type="text" placeholder="Enter zip code" name="zipcode" id="zip">
+    <br>
+    <br>
+        <label for="state"><b>State</b></label>
+        <input type="text" placeholder="Enter state" name="state" id="state">
+    <br>
+    <br>
+            
+        <label for="phone"><b>Phone Number</b></label>
+        <input type="tel" placeholder="Enter phone number" name="phone" id="phone">
+    <br>
+    <br> 
+
+    <label for="submit"><b>Submit Changes</b></label>
+    <input type="submit" value="Modify Renter">
+
+      </form>
+      <div id = "modified-renter-info"></div>
+
+</body>
+</html>

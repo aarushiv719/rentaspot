@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List Renter</title>
+
+	<script>
+		window.onload = init;
+		function init() {
+			document.getElementById("list-renter-form").addEventListener("submit", function(event) {
+			event.preventDefault();
+			const renterId = document.getElementById("renter-id").value;
+			const request = new Request(`http://127.0.0.1:3000/listRenter?id=${renterId}`, {
+				method: "GET",
+			});
+			fetch(request)
+			.then(response => response.json())
+			.then(data => {
+				console.log(request);
+				const renterInfo = data.renterRes;
+				document.getElementById("renter-info").innerHTML = `
+					<h3>Renter Information</h3>
+					<p>Last Name: ${renterInfo.last_name}</p>
+					<p>First Name: ${renterInfo.first_name}</p>
+					<p>Email: ${renterInfo.email}</p>
+					<p>Address: ${renterInfo.address}</p>
+					<p>City: ${renterInfo.city}</p>
+					<p>State: ${renterInfo.state}</p>
+					<p>Zip Code: ${renterInfo.zipcode}</p>
+					<p>Username: ${renterInfo.username}</p>
+				`;
+			})
+			.catch(error => console.error(error));
+			});
+	}
+	</script>
+</head>
+<body>
+	<h1>List Renter</h1>
+	<form id="list-renter-form">
+		<label for="renter-id">Renter ID:</label>
+		<input type="text" id="renter-id" name="renter-id"><br><br>
+		<input type="submit" value="List Renter">
+	</form> 
+	<br>
+	<div id="renter-info"></div>
+	
+</body>
+</html>

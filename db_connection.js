@@ -5,16 +5,16 @@ var fs = require('fs');        // file system (fs) module
 // a specific set of credentials.
 function getDBconnection()
 {
-	// create the connection
+	// create the connecction
 	// host - the name of the computer that is running the MySql database service.
 	// user - the name or user ID of the MySql user
 	// password - the pass word of the user account
-	// database - the database name
+	// database - the databaase name
 	
 	var dbcon = mysql.createConnection({
 	  host: "localhost",
 	  user: "root",
-	  password: "@Kevin3rv",
+	  password: "Princess28!",
 	  database: "RentASpot"
 	});
 	
@@ -27,11 +27,11 @@ function quote(value)
 	return "'" + value + "'";
 }
 
+
 // Load a file into memory and send it to the res (HTML response)
 // function parameter so that it can be rendered in the remote 
 // HTML browswer.
-function loadFile(sFileName, bBinary, res, contentType)
-{
+function loadFile(sFileName, bBinary, res, contentType) {
 	var bRtn = false;
 	
 	// Confirm the file exists.
@@ -53,6 +53,8 @@ function loadFile(sFileName, bBinary, res, contentType)
 			res.write(fileToLoad);
 			res.end();
 			bRtn = true;
+
+
 		}
 	}
 	else
@@ -61,55 +63,64 @@ function loadFile(sFileName, bBinary, res, contentType)
 		res.end('Invalid Request! File does not exist: ' + sFileName);
 	}	
 	
-	return bRtn;
 }
 
 // Given a set of user ID and password parameters, validate the UID and pw
 // and then using the res (HTML response) parameter, send the correct
 // HTML page to be rendereed on the remote browser.
-function validate_login_renter(uid, pw, res)
+
+async function validate_login_renter(uid, pw, res)
 {
-	var bRtn = false;
 	var dbcon = getDBconnection();
-	
 	// connect to the MySQL database
 	dbcon.connect();
-
+	let renterRes = null;
 	// setup the SQL string
-	var sql = "select count(*) as recordcount from renter where Username = " + quote(uid) + " and Password = " + quote(pw) + ";";
+	var sql = "select * from renter where Username = " + quote(uid) + " and Password = " + quote(pw) + ";";
 	
+	function setRenter(renter) {
+		renterRes = renter;
+		console.log("setRenter: ")
+		console.log(renterRes);
+	}
+
 	// perform the SQL query
-	dbcon.query(sql, function (err, rows, fields) 
+	let q = await new Promise( (resolve, reject) => {
+		dbcon.query(sql, function (err, rows, fields) 
 	{
 		if (err) 
 		{
 			console.log("sql is incorrect: " + sql);
 			throw err;
 		}
-
+		console.log("rows:");
+		console.log(rows);
 		// If the SQL returned a single row using the UID and PW then
 		// the end-user typed in the correct PW and UID. If there are
 		// rows returned then the UID and PW is not valid.
-		bRtn = (rows[0].recordcount > 0 ? true : false);
-		console.log('found renter record: ' + rows[0].recordcount);
-		
-		if (bRtn == true)
-		{
-			// Validation is true therefore load the renter landing page.
-			loadFile('index_renter.html', false, res, 'text/html')
+		if (rows.length > 0) {
+		console.log('found renter record: ' + rows.length);
+		loadFile('index_renter.html', false, res, 'text/html');
+		resolve({...rows[0]})
+		//console.log(renterRes);
+		//return renterRes;
 		}
 		else
 		{
-			// Validattion is false, inform the end user
+			// Validation is false, inform the end user
 			loadFile('login_invalid.html', false, res, 'text/html');
+			reject(new Error("Validation failed"));
 		}			
-		
-		
+
 	});
+	}); 
 	
+	
+
+	setRenter(q);
 	dbcon.end();
-	
-	return bRtn;
+	return renterRes;
+
 }
 
 // Given a set of user ID and password parameters, validate the UID and pw
@@ -124,7 +135,7 @@ function validate_login_propertyowner(uid, pw, res)
 	dbcon.connect();
 
 	// setup the SQL string
-	var sql = "select count(*) as recordcount from propertyowner where Username = " + quote(uid) + " and Password = " + quote(pw) + ";";
+	var sql = "select count(*) as recordcount from owner where Username = " + quote(uid) + " and Password = " + quote(pw) + ";";
 	
 	// perform the SQL query
 	dbcon.query(sql, function (err, rows, fields) 
@@ -148,7 +159,7 @@ function validate_login_propertyowner(uid, pw, res)
 		}
 		else
 		{
-			// Validattion is false, inform the end user
+			// Validation is false, inform the end user
 			loadFile('login_invalid.html', false, res, 'text/html');
 		}			
 		
@@ -210,5 +221,7 @@ function parkingspotlisting(res)
 module.exports = { 
 	validate_login_renter,
 	validate_login_propertyowner,
-	parkingspotlisting	
+	parkingspotlisting,
+	getDBconnection,
+	loadFile
 };

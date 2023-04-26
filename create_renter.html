@@ -1,9 +1,86 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<title>Create Renter</title>
+
+    <script>
+        window.onload = init;
+
+        function init () {
+            document.getElementById("createRenter").addEventListener("submit", function(event){
+                event.preventDefault();
+                const renterUser = document.getElementById("username").value;
+                const renterPass = document.getElementById("password").value;
+                const renterFirstN = document.getElementById("first_name").value;
+                const renterLastN = document.getElementById("last_name").value;
+                const renterZip = document.getElementById("zip").value;
+                const renterEmail = document.getElementById("email").value;
+                const renterAddress = document.getElementById("address").value;
+                const renterCity = document.getElementById("city").value;
+                const renterState = document.getElementById("state").value;
+                const renterPhone = document.getElementById("phone").value;
+
+                const request = new Request(`http://127.0.0.1:3000/createRenter`,{
+                    method: "POST",
+                    body: JSON.stringify(({last_name: renterLastN, first_name: renterFirstN, email: renterEmail, address: renterAddress, city: renterCity, state: renterState, zipcode: renterZip, phone: renterPhone, username: renterUser, password: renterPass})),
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    }
+                });
+                fetch(request)
+                .then(response=>response.json())
+                .then(data=> {
+                    document.getElementById("created-renter").innerHTML =
+                    `<h3>Account created! Redirecting you to homepage...</h3>`;
+
+                    window.setTimeout(function(){
+                        window.location.href="index.html";
+                    }, 800);
+                   
+                })
+                .catch(error => console.error(error));
+            });
+        }
+
+    </script>
+</head>
 <body>
+	<h1>Create Renter</h1>
 
-<h1>Create Renter landing page</h1>
-<p>My first paragraph.</p>
+    <form id = "createRenter">
+		<label for="last_name">Last Name:</label><br>
+		<input type="text" id="last_name" name="last_name"><br>
 
+		<label for="first_name">First Name:</label><br>
+		<input type="text" id="first_name" name="first_name"><br>
+
+		<label for="email">Email:</label><br>
+		<input type="text" id="email" name="email"><br>
+
+		<label for="address">Address:</label><br>
+		<input type="text" id="address" name="address"><br>
+
+		<label for="city">City:</label><br>
+		<input type="text" id="city" name="city"><br>
+
+		<label for="state">State:</label><br>
+		<input type="text" id="state" name="state"><br>
+
+		<label for="zipcode">Zipcode:</label><br>
+		<input type="text" id="zip" name="zip"><br>
+
+		<label for="phone">Phone:</label><br>
+		<input type="text" id="phone" name="phone"><br>
+
+		<label for="username">Username:</label><br>
+		<input type="text" id="username" name="username"><br>
+
+		<label for="password">Password:</label><br>
+		<input type="password" id="password" name="password"><br><br>
+
+        <label for="submit"><b>Create Account</b></label>
+		<input type="submit" value="Submit">
+    </form>
+    <div id = "created-renter"></div>
 </body>
 </html>
