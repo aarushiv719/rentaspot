@@ -21,7 +21,7 @@ dbcon.query(sql, [
     else {
         //the server has successfully processed the request and is returning the requested resource in the response body.
         response.writeHead(207, {'Content-Type': 'application/json'});
-        response.end(JSON.stringify({message: "Renter Updated!"}));
+        response.end(JSON.stringify(renter));
     }
 });
 }

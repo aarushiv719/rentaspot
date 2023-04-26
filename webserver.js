@@ -186,6 +186,7 @@ const server = http.createServer(function (req, res)
 		req.on("end",function(){ 
 			var formvar = qs.parse(body);
 			mr.modifyRenter(req,res,body);
+			currentUser = JSON.parse(body);
 		});
 		req.on("error",function(e){		});
 
