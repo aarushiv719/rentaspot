@@ -9,6 +9,7 @@
         window.onload = init;
         function init() {
 
+                
             const user = new Request("http://127.0.0.1:3000/getCurrentUser");
             fetch(user)
             .then(response => response.json())
@@ -145,10 +146,11 @@
     <br>
     <br> 
 
-    <label for="submit"><b>Submit Changes</b></label>
-    <input type="submit" value="Modify Renter">
-
+    <input type="submit" value="Submit Changes">
       </form>
+<br>
+      <input type="button" value="Go back!" onclick="history.back()">
+
       <div id = "modified-renter-info"></div>
 
 </body>

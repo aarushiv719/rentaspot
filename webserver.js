@@ -141,9 +141,7 @@ const server = http.createServer(function (req, res)
 		req.on("end",async function(){ 
 			var formvar = qs.parse(body);
 			currentUser = await db.validate_login_renter(formvar.uid, formvar.psw, res);
-			console.log("webserver:");
-			console.log(currentUser);
-			//console.log('db.validate_login_renter() = ' + currentUser);
+			console.log('db.validate_login_renter() = ' + currentUser);
 
 		});
 	  
@@ -211,7 +209,6 @@ const server = http.createServer(function (req, res)
 		req.on("error",function(e){		});
 
 	  } else if (pathname == '/getCurrentUser' && req.method == 'GET'){
-		//console.log(currentUser);
 		res.writeHead(207, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify(currentUser));
 

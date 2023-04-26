@@ -80,8 +80,7 @@ async function validate_login_renter(uid, pw, res)
 	
 	function setRenter(renter) {
 		renterRes = renter;
-		console.log("setRenter: ")
-		console.log(renterRes);
+
 	}
 
 	// perform the SQL query
@@ -93,8 +92,7 @@ async function validate_login_renter(uid, pw, res)
 			console.log("sql is incorrect: " + sql);
 			throw err;
 		}
-		console.log("rows:");
-		console.log(rows);
+
 		// If the SQL returned a single row using the UID and PW then
 		// the end-user typed in the correct PW and UID. If there are
 		// rows returned then the UID and PW is not valid.
@@ -102,14 +100,13 @@ async function validate_login_renter(uid, pw, res)
 		console.log('found renter record: ' + rows.length);
 		loadFile('index_renter.html', false, res, 'text/html');
 		resolve({...rows[0]})
-		//console.log(renterRes);
-		//return renterRes;
+
 		}
 		else
 		{
 			// Validation is false, inform the end user
 			loadFile('login_invalid.html', false, res, 'text/html');
-			reject(new Error("Validation failed"));
+			//reject(new Error("Validation failed"));
 		}			
 
 	});
