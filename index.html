@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+   <meta http-equiv="Pragma" content="no-cache" />
+   <meta http-equiv="Expires" content="0" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	
+	<link rel="stylesheet" href="./css/index.css">
+	<title>Rent a Spot</title>
+</head>
+
+<body>
+
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="db_validate_login_propertyowner" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="./images/img_avatar1.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uid"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uid" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+    </div>
+
+  </form>
+</div>
+
+<div id="id02" class="modal">
+  
+  <form class="modal-content animate" action="db_validate_login_renter" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="./images/img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uid"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uid" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+    </div>
+  </form>
+</div>
+
+<div id="id03" class="modal">
+  
+  <form class="modal-content animate" action="db_create_propertyowner" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="./images/img_avatar1.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uid"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uid" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+    </div>
+
+  </form>
+</div>
+
+<div id="id04" class="modal">
+  
+  <form class="modal-content animate" action="db_create_renter" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="./images/img_avatar1.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uid"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uid" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+    </div>
+
+  </form>
+</div>
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
+	<h1>Rent-a Spot</h1>
+	<br>
+	<img src="images/threeparkedcars.jpg" alt="three parked cars">
+	<br><br>
+	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">property owner login</button>
+	<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">renters login</button>
+
+	<p>Rent-a-Spot is a service that allows land and homeowners to list open
+spaces on their property, and users/clients can rent these spaces to park their
+vehicles for daily or monthly prices. Both property owners and users/clients will
+create accounts and each type of account will have different features. Daily and
+monthly fees will be determined by the owner of the property and a description
+of the type of surface, over-head covering (if there is one available), and the
+dimensions of their parking space will be provided to the user/client. An aerial
+view/image of the spot at the location that is procured from Google Maps will also
+be shown with the listing (if a garage space is being offered, a picture of the space
+will be provided by the property owner instead of the aerial image). Users/clients
+will provide the make and model of their vehicle along with a license plate
+number (provided at the time of the transaction). If a user/client has multiple
+vehicles that need to be parked, this will be completed through multiple
+transactions (one for each vehicle). Both types of accounts will also have profiles
+and phone numbers to identify and contact each other. The property owner
+profiles will always be available, but the client profile will only be made visible to
+the property owner after the payment has been given. All transactions between
+property owners and users will happen in-person.</p>
+<br><br>
+Are you a property owner looking to create a new account and list a parking space?<br>
+
+<button onclick="window.location.href='create_propertyowner.html';" style="width:auto;">create a new property owner account</button>
+<button onclick="window.location.href='create_renter.html';" style="width:auto;">create a new renter account</button>
+
+<br><br>
+Are you looking to rent a parking space?<br>
+<button onclick="window.location.href='parkingspotlisting';" style="width:auto;">browse parking spot listings</button>
+
+
+
+
+</body>
+
+
+</html>
+

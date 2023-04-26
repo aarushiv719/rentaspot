@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="./css/login.css">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>	
+	<title>Rent a Spot</title>
+</head>
+
+<body>
+<div class="divbody">
+	<h1>Renter Login Form</h1>
+	<br>
+	
+	<form action="db_validate_login_renter" method="post">
+		<div class="imgcontainer">
+			<img src="./images/img_avatar2.png" alt="Avatar" class="avatar">
+		</div>
+
+		<div class="container">
+		<label for="uid"><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="uid" required>
+
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="psw" required>
+
+		<button type="submit">Login</button>
+		
+		</div>
+
+		<div class="container" style="background-color:#f1f1f1">
+		<button type="button" class="cancelbtn">Cancel</button>
+		
+		</div>
+	</form>
+</div>	
+
+</body>
+
+
+</html>
+
