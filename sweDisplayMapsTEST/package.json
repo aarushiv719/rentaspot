@@ -1,0 +1,22 @@
+{
+  "name": "swedisplaymapstest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "hariraj",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^1.1.3",
+    "express": "^4.18.2",
+    "google": "^2.1.0",
+    "maps": "^0.3.3",
+    "node-cache": "^5.1.2",
+    "node-geocoder": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
